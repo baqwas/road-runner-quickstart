@@ -88,3 +88,7 @@ lint/tmp/
 
 .DS_Store
 .idea
+
+# 2022-10-13 armw Very Large Heap Files
+.hprof
+

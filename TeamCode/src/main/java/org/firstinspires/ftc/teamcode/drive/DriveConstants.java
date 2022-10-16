@@ -18,10 +18,26 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 public class DriveConstants {
 
     /*
-     * These are motor constants that should be listed online for your motors.
+     * These motor constants are estimated in the following worksheet:
+     * https://docs.google.com/spreadsheets/d/1PRGoHqyCUkSiiUiAUla-mElgsUdoqUssUntqvU-TYFY/edit?usp=sharing
+     * REV HD Hex Motor (REV-41-1211)
+     * 1	ratio, 20:1	HD Hex Motor Reduction
+     * 20	gear ratio
+     * 6,000	RPM	Free speed at 1:1
+     * 300	RPM	Effective at gear ratio
+     * 4 quadrature, 7 rises of Channel A, 28 cycles per rotation of encoder counts
+     * 5.23	5:1 nominal	UltraPlanetary 5:1
+     * 3.61	4:1 nominal	UltraPlanetary 4:1
+     * 18.8803	cumulative	Effective reduction; 6000 / 18.8803 = 317.7915605
+     * 528.6484	counts per rotation of output shaft	ticks/motor_rev (28 * 18.8803)
+     * 0.03937008 mm to inch conversion factor
+     * 75 mm Mecanum wheel diameter
+     * 235.619449	mm	distance traveled per rotation (75 * pi)
+     * 2.243653494	counts per mm travel (528.6484 / 235.619449)
+     * 56.98879692	counts per inch travel	ticks per inch (2.243653494 / 0.03937008)
      */
-    public static final double TICKS_PER_REV = 1;
-    public static final double MAX_RPM = 1;
+    public static final double TICKS_PER_REV = 528.6484; // REV HD Hex 20:1
+    public static final double MAX_RPM = 300; // effectie at gear ratio
 
     /*
      * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
@@ -43,9 +59,9 @@ public class DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    public static double WHEEL_RADIUS = 2; // in
-    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 1; // in
+    public static double WHEEL_RADIUS = 1.476378; // 75 mm dia / 2 * 0.03937008
+    public static double GEAR_RATIO = 0.05296526009; // 317.7915605 / 6000; output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 10.75; // in, distance between mid-point of front/rear wheels (manual measurement)
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
