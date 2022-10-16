@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  * exercise is to ascertain whether the localizer has been configured properly (note: the pure
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
-@TeleOp(group = "drive")
+@TeleOp(name = "Quickstart: Localization test", group = "Road Runner")
 public class LocalizationTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -22,6 +22,9 @@ public class LocalizationTest extends LinearOpMode {
 
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        telemetry.addData("Gamepad", "Use left stick for travel, right stick for rotate");
+        telemetry.addData("Start", "Press PLAY button");
+        telemetry.update();
         waitForStart();
 
         while (!isStopRequested()) {
