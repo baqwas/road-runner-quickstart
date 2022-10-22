@@ -18,6 +18,8 @@ public class TurnTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+        telemetry.addData("Start", "Press PLAY button");
+        telemetry.update();
         waitForStart();
 
         if (isStopRequested()) return;
