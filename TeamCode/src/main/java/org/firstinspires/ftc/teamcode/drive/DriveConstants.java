@@ -36,8 +36,31 @@ public class DriveConstants {
      * 2.243653494	counts per mm travel (528.6484 / 235.619449)
      * 56.98879692	counts per inch travel	ticks per inch (2.243653494 / 0.03937008)
      */
+    /*
     public static final double TICKS_PER_REV = 528.6484; // REV HD Hex 20:1
-    public static final double MAX_RPM = 300; // effectie at gear ratio
+    public static final double MAX_RPM = 300; // effective at gear ratio
+    */
+    /*
+     * These motor constants are estimated in the following worksheet:
+     * https://docs.google.com/spreadsheets/d/1PRGoHqyCUkSiiUiAUla-mElgsUdoqUssUntqvU-TYFY/edit#gid=318862707
+     * 5203-2402-0019	5203 Series Yellow Jacket Planetary Gear Motor
+     * 1	ratio, 1:19.2	19.2:1 Ratio, 24mm Length 8mm REX Shaft, 312 RPM, 3.3 - 5V Encoder
+     * 19.20320856	gear ratio	19.20320856
+     * 312	RPM	Free speed		3.705882353
+     * 4	quadrature 7	rises of Channel A =28	cycles per rotation of encoder
+     * 1	ratio, 19.2:1 19.2	gear ratio
+     * 312	RPM	Free speed at 1:1 16.25	RPM	Effective at gear ratio
+     * 3.705882353			(1+(46/17)) 5.181818182			(1+(46/11))
+     * 19.20320856	cumulative	Effective reduction	(1+(46/17))*(1+(46/11))
+     * 537.6898396	counts per rotation of output shaft	ticks/motor_rev	(1+(46/17))*(1+(46/11))*28
+     * 0.03937008	mm to inch	conversion factor
+     * 96	mm	96mm Mecanum Wheel Set
+     * 301.5928947	mm	distance traveled per rotation
+     * 1.782833246	counts per mm travel
+     * 45.283963	counts per inch travel	ticks per inch
+     */
+    public static final double TICKS_PER_REV = 537.6898396; // goBILDA 5203-2402-0019
+    public static final double MAX_RPM = 312; // effective at gear ratio
 
     /*
      * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
@@ -59,9 +82,13 @@ public class DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    public static double WHEEL_RADIUS = 1.476378; // 75 mm dia / 2 * 0.03937008
-    public static double GEAR_RATIO = 0.05296526009; // 317.7915605 / 6000; output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 10.75; // in, distance between mid-point of front/rear wheels (manual measurement)
+    //public static double WHEEL_RADIUS = 1.476378; // 75 mm dia / 2 * 0.03937008 // REV Mecanum 75mm
+    public static double WHEEL_RADIUS = 1.889764; // 96 mm dia / 2 * 0.03937008 // goBILDA Mecanum 96mm
+    //public static double GEAR_RATIO = 0.05296526009; // 317.7915605 / 6000; output (wheel) speed / input (motor) speed
+    public static double GEAR_RATIO =  0.0520746310116; // 1 / 19.20320856; output (wheel) speed / input (motor) speed
+
+    //public static double TRACK_WIDTH = 10.75; // in, distance between mid-point of front/rear wheels (manual measurement)
+    public static double TRACK_WIDTH = 16.0; // in, goBILDA Strafer v5 kit 17 hole channels
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
